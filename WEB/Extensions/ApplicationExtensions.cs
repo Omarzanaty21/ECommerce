@@ -9,11 +9,9 @@ namespace WEB.Extensions
 {
     public static class ApplicationExtensions
     {
-        public static IServiceCollection AddApplicationExtensions(this IServiceCollection services)
+        public static void AddApplicationExtensions(this IServiceCollection services)
         {
             services.AddScoped<IAccountService, AccountService>();
-            
-            return services;
         }
     }
 }

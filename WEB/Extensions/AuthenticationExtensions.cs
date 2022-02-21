@@ -1,7 +1,7 @@
 namespace WEB.Extensions;
 public static class AuthenticationExtensions
 {
-    public static IServiceCollection AddAuthenticationExtensions(this IServiceCollection services)
+    public static void AddAuthenticationExtensions(this IServiceCollection services)
     {
         services.AddAuthentication()
             .AddCookie("admin", config => {
@@ -9,7 +9,5 @@ public static class AuthenticationExtensions
                 config.LogoutPath = "/dashboard/logout";
                 config.AccessDeniedPath = "/dashboard/error";
             });
-
-        return services;
     }
 }
