@@ -14,10 +14,6 @@
   ],
   "rules": {
     "capitalized-comments": "off",
-    "comma-dangle": [
-      "error",
-      "never"
-    ],
     "indent": [
       "error",
       2,
