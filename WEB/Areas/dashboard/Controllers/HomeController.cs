@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace WEB.Areas.dashboard.Controllers
 {
     [Route("/dashboard")]
-    public class HomeController : dashboardBaseController
+    public class HomeController : DashboardBaseController
     {
         [HttpGet]
         public IActionResult Index()
