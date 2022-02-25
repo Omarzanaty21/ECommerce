@@ -17,4 +17,6 @@ public class DatabaseContext : DbContext
     }
 
     public DbSet<Admin> Admins { get; set; }
+    public DbSet<City> Cities {get; set;}
+    public DbSet<Country> Countries {get; set;}
 }

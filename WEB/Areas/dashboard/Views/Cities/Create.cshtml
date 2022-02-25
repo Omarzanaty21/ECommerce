@@ -1,0 +1,17 @@
+@model WEB.ViewModels.CityCreateViewModel
+@{
+    ViewData["Title"] = "Create City";
+}
+
+<form asp-action="Create">
+    <div class="card-body">
+        <div class="form-group">
+        <label asp-for="Name">Enter city name</label>
+        <input asp-for="Name" type="text" class="form-control" id="exampleInputEmail1" placeholder="">
+        </div>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer">
+        <button type="submit" class="btn btn-primary">Create city</button>
+    </div>
+</form>
