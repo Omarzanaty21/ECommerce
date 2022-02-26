@@ -1,0 +1,46 @@
+@model WEB.ViewModels.CountryViewModel;
+@{
+    ViewData["Title"] = "Update Country";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+    <div class="row mb-2">
+        <div class="col-sm-6">
+        <h1>Edit Country</h1>
+        </div>
+        <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+            <li class="breadcrumb-item"><a asp-area="dashboard" asp-controller="countries" asp-action="index">Countries</a></li>
+            <li class="breadcrumb-item active">Edit</li>
+        </ol>
+        </div>
+    </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <form method="post" asp-area="dashboard" asp-controller="Countries" asp-action="Update">
+                    <div class="card-body">
+                        <div class="form-group">
+                        <label>Name</label>
+                        <input asp-for="Name" type="text" class="form-control" placeholder="Country Name">
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-info">Edit</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+            

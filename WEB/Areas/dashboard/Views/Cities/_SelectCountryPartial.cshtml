@@ -1,8 +1,8 @@
-@model List<WEB.ViewModels.CountryCreateViewModel>
+@* @model List<WEB.ViewModels.CountryCreateViewModel>
 <select name="CountryId" class="form-select" aria-label="Default select example">
   <option selected>--Choose Country</option>
   @foreach(var item in Model)
   {
     <option value="@item.CountryId">@item.Name</option>
   }
-</select>
+</select> *@

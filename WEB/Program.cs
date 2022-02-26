@@ -8,7 +8,6 @@ builder.Services.AddApplicationExtensions();
 builder.Services.AddDatabaseConnection(builder.Configuration);
 builder.Services.AddAuthenticationExtensions();
 builder.Services.AddCityService();
-builder.Services.AddCountryService();
 
 var app = builder.Build();
 
