@@ -25,12 +25,12 @@ namespace WEB.Areas.dashboard.Controllers
             .ToList();
             return View(result);
         }
-        [HttpGet]
+        [HttpGet("create")]
         public IActionResult Create()
         {
             return View();
         }
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<IActionResult> Create(CityCreateViewModel model)
         {
             if(ModelState.IsValid)

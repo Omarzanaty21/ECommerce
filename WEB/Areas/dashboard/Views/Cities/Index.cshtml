@@ -1,8 +1,9 @@
+@using WEB.Models;
 @model List<WEB.ViewModels.CityCreateViewModel>
 @{
     ViewData["Title"] = "Index";
 }
-<a asp-area="dashboard" asp-controller="Cities" asp-action="Create">Create city now</a>
+<a href="/dashboard/Cities/Create" class="btn btn-primary" style="margin-left:20px;margin-top:5px">Create city now</a>
 <div class="card-body">
             <table class="table table-bordered">
                   <thead>
@@ -19,12 +20,12 @@
                             <td>@item.Name</td>
                             <td>
                                 <div class="btn btn-primary">
-                                <a href="/dashboard/Cities/Update" style="width: 50%"></a>
+                                <a href="/dashboard/Cities/Update" style="width: 50%;color:white">Update</a>
                                 </div>
                             </td>
                             <td>
                                 <div class="btn btn-danger">
-                                <a href="/dashboard/Cities/Remove" style="width: 50%">Remove</a>
+                                <a href="/dashboard/Cities/Remove" style="width: 50%;color:white">Remove</a>
                                 </div>
                             </td>
                         </tr>

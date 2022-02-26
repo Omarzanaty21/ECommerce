@@ -6,6 +6,7 @@ namespace WEB.Models
     public class City : BaseModel
     {
         public string Name {get; set;}
+        [ForeignKey("Country")]
         public int CountryId {get; set;}
         public virtual Country Country {get; set;}
     }

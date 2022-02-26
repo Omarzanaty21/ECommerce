@@ -16,9 +16,9 @@ namespace WEB.Services;
     }
     public async Task CreateCityAsync(CityCreateViewModel model)
     {
-        var city = new City();
+        City city = new City();
         city.Name = model.Name;
-        
+        city.CountryId = model.CountryId;
         await Context.Cities.AddAsync(city);
         await Context.SaveChangesAsync();
     }

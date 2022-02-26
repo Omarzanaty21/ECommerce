@@ -62,10 +62,11 @@ namespace WEB.Areas.dashboard.Controllers
         public async Task<IActionResult> Remove(int id)
         {  
            Country requestedCountry = await countryService.FindCountryAsync(id);
-           var model = new CountryRemoveViewModel{
-               Id = requestedCountry.Id,
-               Name = requestedCountry.Name
-           };
+           
+            var model = new CountryRemoveViewModel{
+            Id = requestedCountry.Id,
+            Name = requestedCountry.Name
+            };
            return View(model);
         }
         [HttpPost("remove")]

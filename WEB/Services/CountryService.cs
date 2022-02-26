@@ -24,7 +24,7 @@ namespace WEB.Services;
     {
         var result = Context.Countries.Select(c => new CountryCreateViewModel{
             Name = c.Name,
-            Id = c.Id
+            CountryId = c.Id
         });  
         return result;
     }
