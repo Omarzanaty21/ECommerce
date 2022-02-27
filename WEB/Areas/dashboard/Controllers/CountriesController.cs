@@ -47,7 +47,7 @@ namespace WEB.Areas.dashboard.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View();
+            return View(model);
         }
 
         [HttpGet("update/{id}")]

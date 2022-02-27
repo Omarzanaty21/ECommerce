@@ -7,7 +7,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddApplicationExtensions();
 builder.Services.AddDatabaseConnection(builder.Configuration);
 builder.Services.AddAuthenticationExtensions();
-builder.Services.AddCityService();
 
 var app = builder.Build();
 
