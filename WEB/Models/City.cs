@@ -12,6 +12,7 @@ namespace WEB.Models
         public City(CityViewModel model)
         {
             Name = model.Name;
+            CountryId = model.CountryId;
         }
         public string Name {get; set;}
         [ForeignKey("Country")]

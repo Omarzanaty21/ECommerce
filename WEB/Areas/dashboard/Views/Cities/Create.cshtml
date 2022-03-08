@@ -1,24 +1,58 @@
-@* @model WEB.ViewModels.CityCreateViewModel
+@model WEB.ViewModels.CityViewModel
 @using WEB.Interfaces;
-@inject ICountryService countryService
+@inject IGenericRepository<Country> countryRepository;
 @{
-    ViewData["Title"] = "Create City";
+    ViewData["Title"] = "Create Country";
 }
 
-<form method="post" asp-action="Create" asp-controller="Cities" asp-area="dashboard">
-    <div class="card-body">
-        <div class="form-group">
-        <label asp-for="Name">Enter city name</label>
-        <input asp-for="Name" type="text" class="form-control" id="exampleInputEmail1" placeholder="">
+<section class="content-header">
+    <div class="container-fluid">
+    <div class="row mb-2">
+        <div class="col-sm-6">
+        <h1>Add New</h1>
+        </div>
+        <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+            <li class="breadcrumb-item"><a asp-area="dashboard" asp-controller="cities" asp-action="index">Cities</a></li>
+            <li class="breadcrumb-item active">Add New</li>
+        </ol>
         </div>
     </div>
-    <div class="card-body">
-        <div class="form-group">
-            <partial name="_SelectCountryPartial" model="@countryService.GetAllCountries().ToList()"></partial>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <form method="post" asp-area="dashboard" asp-controller="Cities" asp-action="Create">
+                    <div class="card-body" style="padding:10px">
+                        <div class="form-group">
+                        <label>Name</label>
+                        <input asp-for="Name" type="text" class="form-control" placeholder="City Name">
+                        </div>
+                    </div>
+                    <div class="card-body" style="padding:10px">
+                        <div class="form-group">
+                            <label>Select</label>
+                            <select class="form-control" name="CountryId">
+                                <option>Select Country</option>
+                                @foreach(var item in await countryRepository.GetItemsAsync())
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Add New</button>
+                    </div>
+                </form>
+                </div>
+            </div>
         </div>
     </div>
-    <!-- /.card-body -->
-    <div class="card-footer">
-        <button type="submit" class="btn btn-primary">Create city</button>
-    </div>
-</form> *@
+</section>
