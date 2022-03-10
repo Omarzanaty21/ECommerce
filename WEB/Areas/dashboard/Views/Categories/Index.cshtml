@@ -1,0 +1,80 @@
+@model List<WEB.Models.Category>
+@{
+    ViewData["Title"] = "Index";
+}
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Categories Table</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+              <li class="breadcrumb-item active">Categories</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <a class="btn btn-primary" asp-area="dashboard" asp-controller="Categories" 
+                asp-action="create">Add New</a>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                @if(Model.Count > 0)
+                {
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Category Name</th>
+                        <th>Parent Id</th>
+                        <th>Operations</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach(var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Name</td>
+                                <td>@item.ParentId</td>
+                                <td>
+                                    <form asp-area="dashboard" asp-controller="Categories" asp-action="remove" asp-route-id="@item.Id">
+                                      <a class="btn btn-success" asp-area="dashboard" asp-controller="Categories" 
+                                        asp-action="update" asp-route-id="@item.Id"><i class="fa fa-edit"></i>
+                                      </a>
+
+                                      <button onclick="return confirm('are you sure ?')" class="btn btn-danger" 
+                                        type="submit"><i class="fa fa-trash"></i>
+                                      </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                  </table>
+                }
+                else
+                {
+                  <h3>There are no Categories yet!</h3>
+                }
+              </div>
+            </div>
+            <!-- /.card -->
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
