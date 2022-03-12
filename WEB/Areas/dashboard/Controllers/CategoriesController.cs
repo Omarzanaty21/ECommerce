@@ -60,7 +60,7 @@ namespace WEB.Areas.dashboard.Controllers
             var requestedCategory = await categoriesRepository.GetItemByIdAsync(id);
             requestedCategory.Name = model.Name;
             requestedCategory.ParentId = model.ParentId;
-
+            
             await categoriesRepository.Complete();
 
             return RedirectToAction("Index");

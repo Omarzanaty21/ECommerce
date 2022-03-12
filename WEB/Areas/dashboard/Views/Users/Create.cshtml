@@ -1,0 +1,61 @@
+@model WEB.ViewModels.UserViewModel
+@{
+    ViewData["Title"] = "Create User";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+    <div class="row mb-2">
+        <div class="col-sm-6">
+        <h1>Add New</h1>
+        </div>
+        <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+            <li class="breadcrumb-item"><a asp-area="dashboard" asp-controller="Users" asp-action="index">Users</a></li>
+            <li class="breadcrumb-item active">Add New</li>
+        </ol>
+        </div>
+    </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <form method="post" asp-area="dashboard" asp-controller="Users" asp-action="create">
+                    <div class="card-body">
+                        <div class="form-group">
+                        <label>First name</label>
+                        <input asp-for="FirstName" type="text" class="form-control" placeholder="First Name">
+                        </div>
+                        <div class="form-group">
+                        <label>Last Name</label>
+                        <input asp-for="LastName" type="text" class="form-control" placeholder="Last Name">
+                        </div>
+                        <div class="form-group">
+                        <label>Email</label>
+                        <input asp-for="Email" type="text" class="form-control" placeholder="EmailAddress">
+                        </div>
+                        <div class="form-group">
+                        <label>Password</label>
+                        <input asp-for="Password" type="password" class="form-control" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm Password">
+                        </div>   
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Add New</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
