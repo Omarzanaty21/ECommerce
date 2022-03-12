@@ -29,18 +29,25 @@
                     <form method="post" asp-area="dashboard" asp-controller="Users" asp-action="Update">
                     <div class="card-body">
                         <div class="form-group">
-                        <label>First Name</label>
-                        <input asp-for="FirstName" type="text" class="form-control" placeholder="Country Name">
-                        </div>
-                         <div class="form-group">
-                        <label>Last Name</label>
-                        <input asp-for="LastName" type="text" class="form-control" placeholder="Country Name">
-                        </div>
-                         <div class="form-group">
-                        <label>Email</label>
-                        <input asp-for="Email" type="text" class="form-control" placeholder="Country Name">
+                            <label>First Name</label>
+                            <input asp-for="FirstName" type="text" class="form-control" placeholder="First Name">
                         </div>
                         <div class="form-group">
+                            <label>Last Name</label>
+                            <input asp-for="LastName" type="text" class="form-control" placeholder="Last Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input asp-for="Email" type="text" class="form-control" placeholder="EmailAddress">
+                        </div>
+                        <div class="form-group">
+                            <label>New Password(optional)</label>
+                            <input asp-for="Password" type="password" class="form-control" placeholder="type your password">
+                        </div>
+                        <div class="form-group">
+                            <label>ConfirmYourPassword(optional)</label>
+                            <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Retype your password">
+                        </div>
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">

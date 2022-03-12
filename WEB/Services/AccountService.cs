@@ -47,16 +47,16 @@ public class AccountService : IAccountService
         return new AccountResultResponse(false);
     }
 
-    public User CreateUser(UserViewModel model)
+    public UserHashAndSalt HashPassword(UserViewModel model)
     {
-        var user = new User(model);
-
         using var hmac = new HMACSHA512();
 
-        user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(model.Password));
-        user.PasswordSalt = hmac.Key;
+        var hash_salt = new UserHashAndSalt();
 
-        return user;
+        hash_salt.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(model.Password));
+        hash_salt.PasswordSalt = hmac.Key;
+
+        return hash_salt;
     }
 
     private List<Claim> SetClaims(Admin user)

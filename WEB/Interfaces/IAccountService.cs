@@ -7,5 +7,5 @@ namespace WEB.Interfaces;
 public interface IAccountService
 {
     Task<AccountResultResponse> AdminPasswordSignInAsync(AdminViewModel model);
-    User CreateUser(UserViewModel model);
+    UserHashAndSalt HashPassword(UserViewModel model);
 }

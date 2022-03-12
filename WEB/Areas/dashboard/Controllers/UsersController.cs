@@ -34,8 +34,12 @@ namespace WEB.Areas.dashboard.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> Create(UserViewModel model)
         {
-            var user = accountService.CreateUser(model);
-            
+            var hash_salt = accountService.HashPassword(model);
+
+            var user = new User(model);
+            user.PasswordHash = hash_salt.PasswordHash;
+            user.PasswordSalt = hash_salt.PasswordSalt;
+
             await userRepository.AddAsync(user);
             await userRepository.Complete();
 
@@ -55,14 +59,20 @@ namespace WEB.Areas.dashboard.Controllers
         [HttpPost("update/{id}")]
         public async Task<IActionResult> Update(UserViewModel model, int id)
         {
+            User user = await userRepository.GetItemByIdAsync(id);
+
             if(ModelState.IsValid)
             {
-                User user = await userRepository.GetItemByIdAsync(id);
+                if(!string.IsNullOrEmpty(model.Password))
+                {
+                    var hash_salt = accountService.HashPassword(model);
+                    user.PasswordHash = hash_salt.PasswordHash;
+                    user.PasswordSalt = hash_salt.PasswordSalt;
+                }
                 user.Email = model.Email;
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
-              
-
+                
                 await userRepository.Complete();
 
                 return RedirectToAction("Index");
