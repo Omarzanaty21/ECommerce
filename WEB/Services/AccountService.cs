@@ -19,6 +19,8 @@ public class AccountService : IAccountService
         _context = context;
     }
 
+    public object ModelState { get; private set; }
+
     public async Task<AccountResultResponse> AdminPasswordSignInAsync(AdminViewModel model) 
     {
         var user = await _context.Admins.FirstOrDefaultAsync(x => x.Email == model.Email);
@@ -43,6 +45,18 @@ public class AccountService : IAccountService
         }
 
         return new AccountResultResponse(false);
+    }
+
+    public User CreateUser(UserViewModel model)
+    {
+        var user = new User(model);
+
+        using var hmac = new HMACSHA512();
+
+        user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(model.Password));
+        user.PasswordSalt = hmac.Key;
+
+        return user;
     }
 
     private List<Claim> SetClaims(Admin user)

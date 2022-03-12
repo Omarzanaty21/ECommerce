@@ -11,10 +11,12 @@ namespace WEB.Areas.dashboard.Controllers
     public class UsersController : DashboardBaseController
     {
         private readonly IGenericRepository<User> userRepository;
+        private readonly IAccountService accountService;
 
-        public UsersController(IGenericRepository<User> userRepository)
+        public UsersController(IGenericRepository<User> userRepository, IAccountService accountService)
         {
             this.userRepository = userRepository;
+            this.accountService = accountService;
         }
         
         [HttpGet("index")]
@@ -32,12 +34,8 @@ namespace WEB.Areas.dashboard.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> Create(UserViewModel model)
         {
-            var user = new User(model);
-
-            using var hmac = new HMACSHA512();
-            user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(model.Password));
-            user.PasswordSalt = hmac.Key;
-
+            var user = accountService.CreateUser(model);
+            
             await userRepository.AddAsync(user);
             await userRepository.Complete();
 
