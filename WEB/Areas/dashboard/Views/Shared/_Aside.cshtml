@@ -171,6 +171,76 @@
             </a>
           </li> *@
         </ul>
+         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item">
+            <a href= "#" class="nav-link">
+              <i class="nav-icon fas fa-box"></i>Categories
+              <p>
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a asp-area="dashboard" asp-controller="Categories" asp-action="index" class="nav-link">
+                  <i class="far fa-eye"></i>
+                  <p>View Categories</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a asp-area="dashboard" asp-controller="Categories" asp-action="Create" class="nav-link">
+                  <i class="fas fa-plus"></i>
+                  <p>Add New</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          @* <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Simple Link
+                <span class="right badge badge-danger">New</span>
+              </p>
+            </a>
+          </li> *@
+        </ul>
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item">
+            <a href= "#" class="nav-link">
+              <i class="nav-icon fas fa-shopping-cart"></i>Products
+              <p>
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a asp-area="dashboard" asp-controller="Products" asp-action="index" class="nav-link">
+                  <i class="far fa-eye"></i>
+                  <p>View Products</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a asp-area="dashboard" asp-controller="Products" asp-action="Create" class="nav-link">
+                  <i class="fas fa-plus"></i>
+                  <p>Add New</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          @* <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Simple Link
+                <span class="right badge badge-danger">New</span>
+              </p>
+            </a>
+          </li> *@
+        </ul>
       </nav>
       <!-- /.sidebar-menu -->
     </div>

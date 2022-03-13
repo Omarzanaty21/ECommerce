@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WEB.Data;
 
@@ -10,9 +11,10 @@ using WEB.Data;
 namespace WEB.Data.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220313141217_addproductfix")]
+    partial class addproductfix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.2");
@@ -120,7 +122,7 @@ namespace WEB.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("EndOfferAt")
+                    b.Property<DateTime>("EndtOferAt")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -135,7 +137,7 @@ namespace WEB.Data.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("StartOfferAt")
+                    b.Property<DateTime>("StartOferAt")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
