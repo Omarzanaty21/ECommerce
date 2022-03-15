@@ -181,5 +181,13 @@
 <script src="~/Areas/dashboard/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <script src="~/Areas/dashboard/dist/js/adminlte.min.js"></script>
+ <script>
+        function changeElementLabel()
+        {
+            var input = document.getElementById('picureUploader');
+            var label = document.getElementById('pictureLabel');
+            label.innerText = input.files.length > 0 ? input.files[0].name : "Choose your Product Picture"; 
+        }
+  </script>
 </body>
 </html>

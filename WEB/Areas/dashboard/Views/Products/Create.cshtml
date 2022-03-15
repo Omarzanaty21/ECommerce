@@ -37,8 +37,8 @@
                         </div>
                         <div class="card-body" style="padding:10px">
                             <div class="custom-file">
-                                <input asp-for="File" type="file" class="custom-file-input">
-                                <label class="custom-file-label" asp-for="File">Choose Product picture</label>
+                                <input  onchange="changeElementLabel()" id="picureUploader" asp-for="File" type="file" class="custom-file-input">
+                                <label id="pictureLabel" class="custom-file-label" asp-for="File">Choose Product picture</label>
                             </div>
                         </div>
                         <div class="card-body" style="padding:10px">
@@ -98,3 +98,4 @@
         </div>
     </div>
 </section>
+
