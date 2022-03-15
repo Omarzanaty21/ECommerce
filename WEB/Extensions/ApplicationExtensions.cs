@@ -13,6 +13,7 @@ namespace WEB.Extensions
         {
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IPictureService, PictureService>();
         }
     }
 }

@@ -11,10 +11,13 @@ namespace WEB.Areas.dashboard.Controllers
     public class ProductsController : DashboardBaseController
     {
         private readonly IGenericRepository<Product> productRepository;
+        private readonly IPictureService pictureService;
 
-        public ProductsController(IGenericRepository<Product> productRepository)
+        public ProductsController(IGenericRepository<Product> productRepository
+        , IPictureService pictureService)
         {
             this.productRepository = productRepository;
+            this.pictureService = pictureService;
         }
         [HttpGet("index")]
         public async Task<IActionResult> Index()
@@ -34,6 +37,7 @@ namespace WEB.Areas.dashboard.Controllers
             if(ModelState.IsValid)
             {
                 var product = new Product(model);
+                product.PicturePath = await pictureService.UploadPictureAsync(model.Name, model.File);
 
                 await productRepository.AddAsync(product);
 
@@ -67,6 +71,13 @@ namespace WEB.Areas.dashboard.Controllers
                 product.Quantity = model.Quantity;
                 product.CategoryId = model.CategoryId;
 
+                if(model.File != null)
+                {
+                    System.IO.File.Delete(product.PicturePath);
+                    product.PicturePath = await pictureService.UploadPictureAsync(product.Name,
+                    model.File);  
+                } 
+
                 await productRepository.Complete();
 
                 return RedirectToAction("Index");
@@ -76,14 +87,18 @@ namespace WEB.Areas.dashboard.Controllers
         [HttpPost("remove/{id}")]
         public async Task<IActionResult> Remove(int id)
         {
+            Product item =await productRepository.GetItemByIdAsync(id);
+            if(item.PicturePath != null)
+            {
+                System.IO.File.Delete(item.PicturePath);
+            }
+            
             await productRepository.RemoveAsync(id);
 
             await productRepository.Complete();
 
             return RedirectToAction("Index");
         }
-
-
 
     }
 }
