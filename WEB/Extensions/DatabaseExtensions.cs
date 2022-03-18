@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using WEB.Data;
+using WEB.Interfaces;
+using WEB.Models;
 
 namespace WEB.Extensions
 {
@@ -15,7 +17,7 @@ namespace WEB.Extensions
         {
             var scope = app.ApplicationServices.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
-            
+    
             context.Database.Migrate();
             DatabaseContextSeed.SeedData(context);
         }

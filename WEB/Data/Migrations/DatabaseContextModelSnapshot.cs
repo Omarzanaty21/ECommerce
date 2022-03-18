@@ -141,6 +141,9 @@ namespace WEB.Data.Migrations
                     b.Property<DateTime>("StartOfferAt")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("pictureLocationName")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");

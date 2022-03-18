@@ -30,4 +30,5 @@ app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Inde
 
 app.MigrateDatabase();
 
+
 app.Run();

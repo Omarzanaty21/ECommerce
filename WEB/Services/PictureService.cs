@@ -11,7 +11,11 @@ namespace WEB.Services
         {
             this.env = env;
         }
-        public async Task<string> UploadPictureAsync( string productName, IFormFile file)
+
+        public string ReturnPictureLocationName{get; set;}
+        
+
+        public async Task<ProductPictureFields> UploadPictureAsync( string productName, IFormFile file)
         {
             var newName = Guid.NewGuid().ToString();
             var extension = Path.GetExtension(file.FileName);
@@ -23,8 +27,12 @@ namespace WEB.Services
             {
                 await file.CopyToAsync(fs);
             }
+            ProductPictureFields productFields = new ProductPictureFields();
+            productFields.SavePath = savePath;
+            productFields.PictureLocationName = pictureFullName;
 
-            return savePath;
+            // var renderPath = $"~/Uploads/ProductPictures/{pictureFullName}";
+            return productFields;
         }
     }
 }

@@ -37,7 +37,10 @@ namespace WEB.Areas.dashboard.Controllers
             if(ModelState.IsValid)
             {
                 var product = new Product(model);
-                product.PicturePath = await pictureService.UploadPictureAsync(model.Name, model.File);
+                var productPictureFields = await pictureService.UploadPictureAsync(model.Name, model.File);
+
+                product.PicturePath = productPictureFields.SavePath;
+                product.pictureLocationName = productPictureFields.PictureLocationName;
 
                 await productRepository.AddAsync(product);
 
@@ -50,6 +53,7 @@ namespace WEB.Areas.dashboard.Controllers
         [HttpGet("update/{id}")]
         public async Task<IActionResult> Update(int id)
         {
+            
             var product = await productRepository.GetItemByIdAsync(id);
 
             var model = new ProductViewModel(product);
@@ -74,8 +78,10 @@ namespace WEB.Areas.dashboard.Controllers
                 if(model.File != null)
                 {
                     System.IO.File.Delete(product.PicturePath);
-                    product.PicturePath = await pictureService.UploadPictureAsync(product.Name,
+                    var productPictureFields = await pictureService.UploadPictureAsync(product.Name,
                     model.File);  
+                    product.PicturePath = productPictureFields.SavePath;
+                    product.pictureLocationName = productPictureFields.PictureLocationName;
                 } 
 
                 await productRepository.Complete();
