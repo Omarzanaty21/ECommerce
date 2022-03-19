@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using WEB.Interfaces;
 using WEB.Models;
 
 namespace WEB.Controllers;
@@ -7,15 +8,19 @@ namespace WEB.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly IGenericRepository<Product> productRepository;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, IGenericRepository<Product> productRepository)
     {
         _logger = logger;
+        this.productRepository = productRepository;
     }
-
-    public IActionResult Index()
+    
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var model = await productRepository.GetItemsAsync();
+
+        return View(model);
     }
 
     public IActionResult Privacy()

@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using WEB.Interfaces;
+@inject IGenericRepository<Category> categoryRepository
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -19,7 +21,7 @@
     </head>
     <body>
         <div class="page-wrapper">
-            <header class="header header-2 header-intro-clearance">
+            <header class="header header-2 header-intro-clearance" style="background-color:#FFF">
                 <div class="header-top">
                     <div class="container">
                         <div class="header-left">
@@ -67,8 +69,8 @@
                     <div class="container">
                         <div class="header-left">
                             <a href="index.html" class="logo">
-                                <img src="assets/images/SiteLogo2.jpeg" alt="Molla Logo" width="200" height="20">
-                                <h3 style="color:#A2A8B0;padding-top:'5px';text-decoration:underline">
+                                @* <img src="" alt="ECommerce Logo" width="200" height="20">  *@
+                                <h3 style="color:#A6C76C;padding-top:'5px'">
                                     ECommerce
                                 </h3>
                             </a>
@@ -186,15 +188,10 @@
                                         <ul class="menu-vertical sf-arrows sf-js-enabled" style="touch-action: pan-y;">
                                             <li class="item-lead"><a href="#">Daily offers</a></li>
                                             <li class="item-lead"><a href="#">Gift Ideas</a></li>
-                                            <li><a href="#">Beds</a></li>
-                                            <li><a href="#">Lighting</a></li>
-                                            <li><a href="#">Sofas &amp; Sleeper sofas</a></li>
-                                            <li><a href="#">Storage</a></li>
-                                            <li><a href="#">Armchairs &amp; Chaises</a></li>
-                                            <li><a href="#">Decoration </a></li>
-                                            <li><a href="#">Kitchen Cabinets</a></li>
-                                            <li><a href="#">Coffee &amp; Tables</a></li>
-                                            <li><a href="#">Outdoor Furniture </a></li>
+                                            @foreach(var item in await categoryRepository.GetItemsAsync())
+                                            {
+                                                <li><a href="#">@item.Name</a></li>
+                                            } 
                                         </ul><!-- End .menu-vertical -->
                                     </nav><!-- End .side-nav -->
                                 </div><!-- End .dropdown-menu -->
@@ -405,11 +402,166 @@
             @RenderBody()
             </main>
         </div>
-        <footer class="border-top footer text-muted">
-            <div class="container">
-                &copy; 2022 - WEB - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-        </footer>
+        <footer class="footer footer-2">
+            <div class="icon-boxes-container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="icon-box icon-box-side">
+                                <span class="icon-box-icon text-dark">
+                                    <i class="icon-rocket"></i>
+                                </span>
+                                <div class="icon-box-content">
+                                    <h3 class="icon-box-title">Free Shipping</h3><!-- End .icon-box-title -->
+                                    <p>orders $50 or more</p>
+                                </div><!-- End .icon-box-content -->
+                            </div><!-- End .icon-box -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
+
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="icon-box icon-box-side">
+                                <span class="icon-box-icon text-dark">
+                                    <i class="icon-rotate-left"></i>
+                                </span>
+
+                                <div class="icon-box-content">
+                                    <h3 class="icon-box-title">Free Returns</h3><!-- End .icon-box-title -->
+                                    <p>within 30 days</p>
+                                </div><!-- End .icon-box-content -->
+                            </div><!-- End .icon-box -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
+
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="icon-box icon-box-side">
+                                <span class="icon-box-icon text-dark">
+                                    <i class="icon-info-circle"></i>
+                                </span>
+
+                                <div class="icon-box-content">
+                                    <h3 class="icon-box-title">Get 20% Off 1 Item</h3><!-- End .icon-box-title -->
+                                    <p>When you sign up</p>
+                                </div><!-- End .icon-box-content -->
+                            </div><!-- End .icon-box -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
+
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="icon-box icon-box-side">
+                                <span class="icon-box-icon text-dark">
+                                    <i class="icon-life-ring"></i>
+                                </span>
+
+                                <div class="icon-box-content">
+                                    <h3 class="icon-box-title">We Support</h3><!-- End .icon-box-title -->
+                                    <p>24/7 amazing services</p>
+                                </div><!-- End .icon-box-content -->
+                            </div><!-- End .icon-box -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
+                    </div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .icon-boxes-container -->
+
+        	<div class="footer-newsletter bg-image" style="background-image: url(assets/images/backgrounds/bg-2.jpg)">
+        		<div class="container">
+        			<div class="heading text-center">
+                        <h3 class="title">Get The Latest Deals</h3><!-- End .title -->
+                        <p class="title-desc">and receive <span>$20 coupon</span> for first shopping</p><!-- End .title-desc -->
+                    </div><!-- End .heading -->
+
+                    <div class="row">
+                    	<div class="col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+                            <form action="#">
+    							<div class="input-group">
+    								<input type="email" class="form-control" placeholder="Enter your Email Address" aria-label="Email Adress" aria-describedby="newsletter-btn" required>
+    								<div class="input-group-append">
+    									<button class="btn btn-primary" type="submit" id="newsletter-btn"><span>Subscribe</span><i class="icon-long-arrow-right"></i></button>
+    								</div><!-- .End .input-group-append -->
+    							</div><!-- .End .input-group -->
+                            </form>
+                    	</div><!-- End .col-sm-10 offset-sm-1 col-lg-6 offset-lg-3 -->
+                    </div><!-- End .row -->
+        		</div><!-- End .container -->
+        	</div><!-- End .footer-newsletter bg-image -->
+
+        	<div class="footer-middle" style="background-color:#FFF">
+	            <div class="container">
+	            	<div class="row">
+	            		<div class="col-sm-12 col-lg-6">
+	            			<div class="widget widget-about">
+                                <h3 style="color:#A6C76C">ECommerce</h3>
+	            				@* <img src="assets/images/FooterLogo1.jpg" class="footer-logo" alt="Footer Logo" width="90" height="25"> *@
+	            				<p>
+                                    ECommerce is an online shop that lets you 
+                                    buy product easily, It offers some dobe
+                                    features that diffenetly will suit you.
+                                </p>
+	            			</div><!-- End .widget about-widget -->
+	            		</div><!-- End .col-sm-12 col-lg-3 -->
+
+	            		<div class="col-sm-4 col-lg-2">
+	            			<div class="widget">
+	            				<h4 class="widget-title">Information</h4><!-- End .widget-title -->
+
+	            				<ul class="widget-list">
+	            					<li><a href="#">About ECommerce</a></li>
+	            					<li><a href="#">How to shop on ECommerce</a></li>
+	            					<li><a href="#">FAQ</a></li>
+	            					<li><a href="#">Contact us</a></li>
+	            					<li><a href="#">Log in</a></li>
+	            				</ul><!-- End .widget-list -->
+	            			</div><!-- End .widget -->
+	            		</div><!-- End .col-sm-4 col-lg-3 -->
+
+	            		<div class="col-sm-4 col-lg-2">
+	            			<div class="widget">
+	            				<h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+
+	            				<ul class="widget-list">
+	            					<li><a href="#">Payment Methods</a></li>
+	            					<li><a href="#">Money-back guarantee!</a></li>
+	            					<li><a href="#">Returns</a></li>
+	            					<li><a href="#">Shipping</a></li>
+	            					<li><a href="#">Terms and conditions</a></li>
+	            					<li><a href="#">Privacy Policy</a></li>
+	            				</ul><!-- End .widget-list -->
+	            			</div><!-- End .widget -->
+	            		</div><!-- End .col-sm-4 col-lg-3 -->
+
+	            		<div class="col-sm-4 col-lg-2">
+	            			<div class="widget">
+	            				<h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+
+	            				<ul class="widget-list">
+	            					<li><a href="#">Sign In</a></li>
+	            					<li><a href="cart.html">View Cart</a></li>
+	            					<li><a href="#">My Wishlist</a></li>
+	            					<li><a href="#">Track My Order</a></li>
+	            					<li><a href="#">Help</a></li>
+	            				</ul><!-- End .widget-list -->
+	            			</div><!-- End .widget -->
+	            		</div><!-- End .col-sm-64 col-lg-3 -->
+	            	</div><!-- End .row -->
+	            </div><!-- End .container -->
+	        </div><!-- End .footer-middle -->
+
+	        <div class="footer-bottom">
+	        	<div class="container">
+	        		<p class="footer-copyright">Copyright © 2022 ECommerce Store. All Rights Reserved.</p><!-- End .footer-copyright -->
+	        		<ul class="footer-menu">
+	        			<li><a href="#">Terms Of Use</a></li>
+	        			<li><a href="#">Privacy Policy</a></li>
+	        		</ul><!-- End .footer-menu -->
+
+	        		<div class="social-icons social-icons-color">
+	        			<span class="social-label">Social Media</span>
+    					<a href="#" class="social-icon social-facebook" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+    					<a href="#" class="social-icon social-twitter" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+    					<a href="#" class="social-icon social-instagram" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+    					<a href="#" class="social-icon social-youtube" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
+    					<a href="#" class="social-icon social-pinterest" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+    				</div><!-- End .soial-icons -->
+	        	</div><!-- End .container -->
+	        </div><!-- End .footer-bottom -->
+        </footer><!-- End .footer -->
         <script src="~/assets/js/jquery.min.js"></script>
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/assets/js/bootstrap.bundle.min.js"></script>
