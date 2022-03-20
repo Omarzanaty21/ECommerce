@@ -10,6 +10,7 @@ namespace WEB.Interfaces
     {
         Task AddAsync(T model);
         Task<List<T>> GetItemsAsync();
+        IQueryable<T> GetItemsQuery();
         Task<T> GetItemByIdAsync(int id);
         Task RemoveAsync(int id);
 

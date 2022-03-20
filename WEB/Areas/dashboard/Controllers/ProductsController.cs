@@ -52,8 +52,7 @@ namespace WEB.Areas.dashboard.Controllers
         }
         [HttpGet("update/{id}")]
         public async Task<IActionResult> Update(int id)
-        {
-            
+        { 
             var product = await productRepository.GetItemByIdAsync(id);
 
             var model = new ProductViewModel(product);

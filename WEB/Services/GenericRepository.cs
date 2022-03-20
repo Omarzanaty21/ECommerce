@@ -42,5 +42,12 @@ namespace WEB.Services
         {
             await _context.SaveChangesAsync();
         }
+
+        public IQueryable<T> GetItemsQuery()
+        {
+            var itemsQuery = _context.Set<T>();
+
+            return itemsQuery;
+        }
     }
 }
