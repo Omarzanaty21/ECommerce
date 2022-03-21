@@ -5,7 +5,7 @@ using WEB.Models;
 
 namespace WEB.Controllers;
 
-public class HomeController : Controller
+public class HomeController : SiteBaseController
 {
     private readonly ILogger<HomeController> _logger;
     private readonly IGenericRepository<Product> productRepository;
@@ -15,7 +15,6 @@ public class HomeController : Controller
         _logger = logger;
         this.productRepository = productRepository;
     }
-    [HttpGet]
     public async Task<IActionResult> Index()
     {
         var model = await productRepository.GetItemsAsync();

@@ -7,7 +7,7 @@ namespace WEB.Models
    {
        public Category()
        {
-           
+           this.Products = new List<Product>();
        }
        public Category(CategoryViewModel model)
        {
@@ -15,8 +15,8 @@ namespace WEB.Models
 
            this.ParentId = model.ParentId;
        }
-       public string Name {get; set;}
-
-       public int ParentId {get; set;}
+        public string Name {get; set;}
+        public List<Product> Products { get; set; }
+        public int ParentId {get; set;}
    } 
 }

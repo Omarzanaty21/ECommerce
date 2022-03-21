@@ -190,7 +190,9 @@
                                             <li class="item-lead"><a href="#">Gift Ideas</a></li>
                                             @foreach(var item in await categoryRepository.GetItemsAsync())
                                             {
-                                                <li><a href="#">@item.Name</a></li>
+                                                <li><a asp-controller="Categories" asp-action="ShowCategory" asp-route-id="@item.Id">
+                                                    @item.Name
+                                                </a></li>
                                             } 
                                         </ul><!-- End .menu-vertical -->
                                     </nav><!-- End .side-nav -->

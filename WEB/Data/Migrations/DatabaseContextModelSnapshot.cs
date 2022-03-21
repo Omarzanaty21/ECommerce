@@ -43,7 +43,7 @@ namespace WEB.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Admins");
+                    b.ToTable("Admins", (string)null);
                 });
 
             modelBuilder.Entity("WEB.Models.Category", b =>
@@ -63,7 +63,7 @@ namespace WEB.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("WEB.Models.City", b =>
@@ -85,7 +85,7 @@ namespace WEB.Data.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", (string)null);
                 });
 
             modelBuilder.Entity("WEB.Models.Country", b =>
@@ -102,7 +102,7 @@ namespace WEB.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries");
+                    b.ToTable("Countries", (string)null);
                 });
 
             modelBuilder.Entity("WEB.Models.Product", b =>
@@ -148,7 +148,7 @@ namespace WEB.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("WEB.Models.Shipping", b =>
@@ -177,7 +177,7 @@ namespace WEB.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Shippings");
+                    b.ToTable("Shippings", (string)null);
                 });
 
             modelBuilder.Entity("WEB.Models.User", b =>
@@ -206,7 +206,7 @@ namespace WEB.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("WEB.Models.City", b =>

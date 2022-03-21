@@ -35,7 +35,7 @@
                             {
                             <div class="product product-11 text-center">
                                     <figure class="product-media">
-                                        <a href="product.html">
+                                        <a asp-controller="Products" asp-action="showproduct" asp-route-id="@product.Id"href="product.html">
                                             <img style="height:250px" src="~/Uploads/ProductPictures/@product.pictureLocationName" alt="Product image" class="product-image">
                                             @* <img src="~/assets/images/ProductPictures/@product.pictureLocationName" alt="Product image" class="product-image-hover"> *@
                                         </a>
