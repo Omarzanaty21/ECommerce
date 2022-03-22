@@ -7,6 +7,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddApplicationExtensions();
 builder.Services.AddDatabaseConnection(builder.Configuration);
 builder.Services.AddAuthenticationExtensions();
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -19,6 +20,9 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseSession();
+
 app.UseStaticFiles();
 
 app.UseRouting();

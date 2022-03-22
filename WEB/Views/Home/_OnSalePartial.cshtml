@@ -40,9 +40,9 @@
                                             @* <img src="~/assets/images/ProductPictures/@product.pictureLocationName" alt="Product image" class="product-image-hover"> *@
                                         </a>
 
-                                        <div class="product-action-vertical">
+                                        @* <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-wishlist"><span>add to wishlist</span></a>
-                                        </div><!-- End .product-action-vertical -->
+                                        </div><!-- End .product-action-vertical --> *@
 
                                     </figure><!-- End .product-media -->
 
@@ -53,7 +53,7 @@
                                         </div><!-- End .product-price -->
                                     </div><!-- End .product-body -->
                                     <div class="product-action">
-                                        <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                        <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id" class="btn-product btn-cart"><span>add to cart</span></a>
                                     </div><!-- End .product-action -->
                             </div><!-- End .product -->
                             }
