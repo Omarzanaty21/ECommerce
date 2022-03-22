@@ -578,6 +578,13 @@
         <script src="~/assets/js/jquery.countdown.min.js"></script>
         <script src="~/assets/js/main.js"></script>
         <script src="~/assets/js/demos/demo-2.js"></script>
+        <script>
+            function changeQuantityInCache(int id)
+            {
+                var element = document.getElementById(id);
+                element.submit();
+            }
+        </script>
         @await RenderSectionAsync("Scripts", required: false)
     
     </body>

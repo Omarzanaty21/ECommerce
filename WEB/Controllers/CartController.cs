@@ -49,19 +49,26 @@ namespace WEB.Controllers
             else
             {
                 var cart = SessionService.GetCartFromJson<CartItem>(HttpContext.Session, "cart");
+
+                bool foundElementResult = false;
                 foreach(var cartItem in cart.ToList<CartItem>())
                 {
                     if(cartItem.Product.Id == id)
                     {
                         cartItem.Quantity += 1;
-                    }
-                    else
-                    {
-                        var selectedProduct = await productRepsoitory.GetItemByIdAsync(id);
-                        var addedCartItem = new CartItem(selectedProduct);
 
-                        cart.Add(addedCartItem);
+                        foundElementResult = true;
                     }
+                }
+
+                if(foundElementResult == false)
+                {
+                
+                    var selectedProduct = await productRepsoitory.GetItemByIdAsync(id);
+                    var addedCartItem = new CartItem(selectedProduct);
+
+                    cart.Add(addedCartItem);
+                   
                 }
 
                 SessionService.SetCartAsJson<CartItem>(HttpContext.Session, "cart", cart);
@@ -80,6 +87,23 @@ namespace WEB.Controllers
                 if(cartItem.Product.Id == id)
                 {
                     cart.Remove(cartItem);
+                }
+            }
+
+            SessionService.SetCartAsJson<CartItem>(HttpContext.Session, "cart", cart);
+
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public IActionResult IncrementCartItemQuantity(int id, int value)
+        {
+            var cart = SessionService.GetCartFromJson<CartItem>(HttpContext.Session, "cart");
+
+            foreach(var cartItem in cart.ToList<CartItem>())
+            {
+                if(cartItem.Product.Id == id)
+                {
+                    cartItem.Quantity = value;
                 }
             }
 
