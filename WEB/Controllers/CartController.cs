@@ -49,19 +49,19 @@ namespace WEB.Controllers
             else
             {
                 var cart = SessionService.GetCartFromJson<CartItem>(HttpContext.Session, "cart");
-
-                int index = SessionService.ExistedCartItemIndex(id, HttpContext.Session);
-
-                if(index != -1)
+                foreach(var cartItem in cart.ToList<CartItem>())
                 {
-                    cart[index].Quantity += 1;
-                }
-                else
-                {
-                    var selectedProduct = await productRepsoitory.GetItemByIdAsync(id);
-                    CartItem cartItem = new CartItem(selectedProduct);
+                    if(cartItem.Product.Id == id)
+                    {
+                        cartItem.Quantity += 1;
+                    }
+                    else
+                    {
+                        var selectedProduct = await productRepsoitory.GetItemByIdAsync(id);
+                        var addedCartItem = new CartItem(selectedProduct);
 
-                    cart.Add(cartItem);
+                        cart.Add(addedCartItem);
+                    }
                 }
 
                 SessionService.SetCartAsJson<CartItem>(HttpContext.Session, "cart", cart);
@@ -74,12 +74,17 @@ namespace WEB.Controllers
         public async Task<IActionResult> RemoveFromCart(int id)
         {
             var cart = SessionService.GetCartFromJson<CartItem>(HttpContext.Session, "cart");
-            int index = SessionService.ExistedCartItemIndex(id, HttpContext.Session);
 
-            cart.Remove(cart[index]);
+            foreach(var cartItem in cart.ToList<CartItem>())
+            {
+                if(cartItem.Product.Id == id)
+                {
+                    cart.Remove(cartItem);
+                }
+            }
 
             SessionService.SetCartAsJson<CartItem>(HttpContext.Session, "cart", cart);
-            
+
             return RedirectToAction("Index");
         }
     }
