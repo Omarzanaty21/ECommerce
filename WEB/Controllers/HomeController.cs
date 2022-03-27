@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WEB.Interfaces;
 using WEB.Models;
 
@@ -17,7 +18,9 @@ public class HomeController : SiteBaseController
     }
     public async Task<IActionResult> Index()
     {
-        var model = await productRepository.GetItemsAsync();
+        var model = await productRepository.GetItemsQuery()
+        .Take(9)
+        .ToListAsync();
 
         return View(model);
     }

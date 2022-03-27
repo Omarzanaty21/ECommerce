@@ -17,9 +17,10 @@ namespace WEB.Extensions
         {
             var scope = app.ApplicationServices.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+            var webHostEnv = scope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
     
             context.Database.Migrate();
-            DatabaseContextSeed.SeedData(context);
+            DatabaseContextSeed.SeedData(context, webHostEnv);
         }
     }
 }

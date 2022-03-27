@@ -53,7 +53,7 @@ namespace WEB.Controllers
                 bool foundElementResult = false;
                 foreach(var cartItem in cart.ToList<CartItem>())
                 {
-                    if(cartItem.Product.Id == id)
+                    if(cartItem.Id == id)
                     {
                         cartItem.Quantity += 1;
 
@@ -84,7 +84,7 @@ namespace WEB.Controllers
 
             foreach(var cartItem in cart.ToList<CartItem>())
             {
-                if(cartItem.Product.Id == id)
+                if(cartItem.Id == id)
                 {
                     cart.Remove(cartItem);
                 }
@@ -101,7 +101,7 @@ namespace WEB.Controllers
 
             foreach(var cartItem in cart.ToList<CartItem>())
             {
-                if(cartItem.Product.Id == id)
+                if(cartItem.Id == id)
                 {
                     cartItem.Quantity = value;
                 }
