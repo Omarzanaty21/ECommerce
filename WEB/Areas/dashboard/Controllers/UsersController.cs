@@ -11,9 +11,9 @@ namespace WEB.Areas.dashboard.Controllers
     public class UsersController : DashboardBaseController
     {
         private readonly IGenericRepository<User> userRepository;
-        private readonly IAccountService accountService;
+        private readonly IAccountService<User> accountService;
 
-        public UsersController(IGenericRepository<User> userRepository, IAccountService accountService)
+        public UsersController(IGenericRepository<User> userRepository, IAccountService<User> accountService)
         {
             this.userRepository = userRepository;
             this.accountService = accountService;
@@ -34,7 +34,7 @@ namespace WEB.Areas.dashboard.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> Create(UserViewModel model)
         {
-            var hash_salt = accountService.HashPassword(model);
+            var hash_salt = accountService.HashPassword(model.Password);
 
             var user = new User(model);
             user.PasswordHash = hash_salt.PasswordHash;
@@ -65,7 +65,7 @@ namespace WEB.Areas.dashboard.Controllers
             {
                 if(!string.IsNullOrEmpty(model.Password))
                 {
-                    var hash_salt = accountService.HashPassword(model);
+                    var hash_salt = accountService.HashPassword(model.Password);
                     user.PasswordHash = hash_salt.PasswordHash;
                     user.PasswordSalt = hash_salt.PasswordSalt;
                 }

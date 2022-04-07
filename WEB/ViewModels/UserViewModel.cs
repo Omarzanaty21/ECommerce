@@ -4,7 +4,7 @@ using WEB.Models;
 
 namespace WEB.ViewModels
 {
-    public class UserViewModel
+    public class UserViewModel : UserBaseViewModel
     {
         public UserViewModel()
         {
@@ -16,11 +16,5 @@ namespace WEB.ViewModels
             this.LastName = model.LastName;
             this.Email = model.Email;
         }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        [Compare("Password")]
-        public string ConfirmPassword { get; set; }
     }
 }

@@ -87,10 +87,10 @@
                         {
                         <div class="col-6">
                             <div class="product product-7 text-center">
-                                <figure class="product-media">
+                                <figure class="product-media" style="height:500px;width:350px">
                                     @* <span class="product-label label-new">New</span> *@
                                     <a asp-controller="Products" asp-action="ShowProduct" asp-route-id="@product.Id">
-                                        <img src="~/Uploads/ProductPictures/@product.pictureLocationName" alt="Product image" class="product-image" style="Height:400px">
+                                        <img src="~/Uploads/ProductPictures/@product.pictureLocationName" alt="Product image" class="product-image" style="height:500px;width:100%">
                                     </a>
 
                                     <div class="product-action-vertical">

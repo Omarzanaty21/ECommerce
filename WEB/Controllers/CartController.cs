@@ -4,10 +4,12 @@ using WEB.Models;
 using WEB.Services;
 using WEB.Interfaces;
 using WEB.ViewModels;
+using WEB.Dtos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WEB.Controllers
 {
-    public class CartController : SiteBaseController
+    public class CartController : SiteBaseController 
     {
         private readonly IGenericRepository<Product> productRepsoitory;
 
@@ -95,21 +97,24 @@ namespace WEB.Controllers
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public IActionResult IncrementCartItemQuantity(int id, int value)
+        public decimal UpdateCartItem([FromBody]CartItemUpdate cartItemUpdate)
         {
             var cart = SessionService.GetCartFromJson<CartItem>(HttpContext.Session, "cart");
+            
+            decimal totalPriceForCartItem = 0.0M;
 
             foreach(var cartItem in cart.ToList<CartItem>())
             {
-                if(cartItem.Id == id)
+                if(cartItem.Id == cartItemUpdate.CartItemId)
                 {
-                    cartItem.Quantity = value;
+                    cartItem.Quantity = cartItemUpdate.Value;
+                    totalPriceForCartItem = cartItem.Price * cartItem.Quantity;
                 }
             }
 
             SessionService.SetCartAsJson<CartItem>(HttpContext.Session, "cart", cart);
-
-            return RedirectToAction("Index");
+            return totalPriceForCartItem;
+            // return cartItemUpdate.Value;
         }
     }
 }

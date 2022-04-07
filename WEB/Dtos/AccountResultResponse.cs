@@ -9,15 +9,15 @@ namespace WEB.Dtos
 {
     public class AccountResultResponse
     {
-        public AccountResultResponse(bool succeeded, ClaimsPrincipal claimsPrincipal = null, Admin admin = null)
+        public AccountResultResponse(bool succeeded, ClaimsPrincipal claimsPrincipal = null, UserBaseModel user = null)
         {
             Succeeded = succeeded;
-            Admin = admin;
+            User = user;
             ClaimsPrincipal = claimsPrincipal;
         }
 
         public bool Succeeded { get; set; }
         public ClaimsPrincipal ClaimsPrincipal { get; set; }
-        public Admin Admin { get; set; }
+        public UserBaseModel User { get; set; }
     }
 }

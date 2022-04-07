@@ -56,12 +56,12 @@
                                                 <td class="price-col">@cartItem.Price</td>
                                                 <td class="quantity-col">
                                                     <div class="cart-product-quantity">
-														<form asp-controller="Cart" asp-action="IncrementCartItemQuantity" asp-route-id="@cartItem.Id"  id="confirmQuantity-@cartItem.Id">
-															<input onchange="changeQuantityInCache(confirmQuantity-@cartItem.Id)" name="value" value="@cartItem.Quantity" type="number" class="form-control" min="1" max="10" step="1" data-decimals="0" required>
-														</form>
+														
+														<input id="input-quantity-@cartItem.Id" oninput="changeQuantityInCache(@cartItem.Id, @cartItem.Price)" name="value" value="@cartItem.Quantity" type="number" class="form-control" min="1" max="10" step="1" data-decimals="0" required>
+														
                                                     </div><!-- End .cart-product-quantity -->
                                                 </td>
-                                                <td class="total-col">#Total</td>
+                                                <td class="total-col" id="showprice-@cartItem.Id">@(cartItem.Quantity * cartItem.Price)</td>
                                                 <td class="remove-col">
 													<a asp-controller="Cart" asp-action="RemoveFromCart" asp-route-id="@cartItem.Id">
 														<button class="btn-remove">
@@ -179,3 +179,26 @@
 	                </div><!-- End .container -->
                 </div><!-- End .cart -->
     </div><!-- End .page-content -->
+	}
+	@section Scripts
+	{
+		<script>
+			 function changeQuantityInCache(cartItemId, price)
+			{
+				var inputElement = document.getElementById(`input-quantity-${cartItemId}`);
+				var priceShowElement = document.getElementById(`showprice-${cartItemId}`)
+				fetch("@Url.Action("UpdateCartItem", "Cart")",{
+				method : "post",
+				headers : {'Content-Type' : 'application/json'},
+				body : JSON.stringify({CartItemId : cartItemId, Value: inputElement.value})
+				})
+				.then(response => response.json())
+				//.then(inputValue => inputElement.innerText = inputValue)
+				.then(totalPrice => priceShowElement.innerText = totalPrice)
+				.catch(error => {
+					console.log(error);
+				});
+			}
+			
+		</script>
+	}

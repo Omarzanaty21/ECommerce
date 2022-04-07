@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WEB.Data;
 
@@ -10,9 +11,10 @@ using WEB.Data;
 namespace WEB.Data.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220402160243_orderitem")]
+    partial class orderitem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.2");
@@ -105,57 +107,6 @@ namespace WEB.Data.Migrations
                     b.ToTable("Countries");
                 });
 
-            modelBuilder.Entity("WEB.Models.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CityId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CountryId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("OrderStatus")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ShippingCompanyName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("ShippingCompanyPrice")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ShippingCountryEmail")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("SubTotal")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("Total")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CityId");
-
-                    b.HasIndex("CountryId");
-
-                    b.ToTable("Orders");
-                });
-
             modelBuilder.Entity("WEB.Models.OrderItem", b =>
                 {
                     b.Property<int>("Id")
@@ -181,8 +132,6 @@ namespace WEB.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("OrderItems");
                 });
@@ -305,36 +254,6 @@ namespace WEB.Data.Migrations
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("WEB.Models.Order", b =>
-                {
-                    b.HasOne("WEB.Models.City", "City")
-                        .WithMany()
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WEB.Models.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("City");
-
-                    b.Navigation("Country");
-                });
-
-            modelBuilder.Entity("WEB.Models.OrderItem", b =>
-                {
-                    b.HasOne("WEB.Models.Order", "Order")
-                        .WithMany("Items")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-                });
-
             modelBuilder.Entity("WEB.Models.Product", b =>
                 {
                     b.HasOne("WEB.Models.Category", "Category")
@@ -354,11 +273,6 @@ namespace WEB.Data.Migrations
             modelBuilder.Entity("WEB.Models.Country", b =>
                 {
                     b.Navigation("Cities");
-                });
-
-            modelBuilder.Entity("WEB.Models.Order", b =>
-                {
-                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

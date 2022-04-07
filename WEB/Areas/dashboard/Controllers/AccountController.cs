@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WEB.Interfaces;
+using WEB.Models;
 using WEB.ViewModels;
 
 namespace WEB.Areas.dashboard.Controllers
@@ -14,8 +15,8 @@ namespace WEB.Areas.dashboard.Controllers
     [Authorize(AuthenticationSchemes = "admin")]
     public class AccountController : DashboardBaseController
     {
-        private readonly IAccountService _accountService;
-        public AccountController(IAccountService accountService)
+        private readonly IAccountService<Admin> _accountService;
+        public AccountController(IAccountService<Admin> accountService)
         {
             _accountService = accountService;
         }
@@ -35,7 +36,7 @@ namespace WEB.Areas.dashboard.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Login(AdminViewModel model)
         {
-            var result = await _accountService.AdminPasswordSignInAsync(model);
+            var result = await _accountService.UserPasswordSignInAsync(model, "admin");
 
             if (result.Succeeded)
             {

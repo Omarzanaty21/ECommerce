@@ -11,7 +11,7 @@ namespace WEB.Extensions
     {
         public static void AddApplicationExtensions(this IServiceCollection services)
         {
-            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped(typeof(IAccountService<>), typeof(AccountService<>));
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IPictureService, PictureService>();
         }

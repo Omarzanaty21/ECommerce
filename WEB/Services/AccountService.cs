@@ -10,7 +10,7 @@ using WEB.ViewModels;
 
 namespace WEB.Services;
 
-public class AccountService : IAccountService
+public class AccountService<T> : IAccountService<T> where T : UserBaseModel
 {
     private readonly DatabaseContext _context;
 
@@ -21,9 +21,9 @@ public class AccountService : IAccountService
 
     public object ModelState { get; private set; }
 
-    public async Task<AccountResultResponse> AdminPasswordSignInAsync(AdminViewModel model) 
+    public async Task<AccountResultResponse> UserPasswordSignInAsync(UserBaseViewModel model, string authenticationType)
     {
-        var user = await _context.Admins.FirstOrDefaultAsync(x => x.Email == model.Email);
+        var user = await _context.Set<T>().FirstOrDefaultAsync(x => x.Email == model.Email);
 
         if (user != null)
         {
@@ -38,7 +38,7 @@ public class AccountService : IAccountService
 
             var claims = SetClaims(user);
 
-            var claimsIdentity = new ClaimsIdentity(claims, "admin");
+            var claimsIdentity = new ClaimsIdentity(claims, authenticationType);
             var claimsPrinciple = new ClaimsPrincipal(claimsIdentity);
 
             return new AccountResultResponse(true, claimsPrinciple, user);
@@ -47,19 +47,19 @@ public class AccountService : IAccountService
         return new AccountResultResponse(false);
     }
 
-    public UserHashAndSalt HashPassword(UserViewModel model)
-    {
+    public UserHashAndSalt HashPassword(string password)
+    { 
         using var hmac = new HMACSHA512();
 
         var hash_salt = new UserHashAndSalt();
 
-        hash_salt.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(model.Password));
+        hash_salt.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
         hash_salt.PasswordSalt = hmac.Key;
 
         return hash_salt;
     }
 
-    private List<Claim> SetClaims(Admin user)
+    private List<Claim> SetClaims(UserBaseModel user)
     {
         return new List<Claim> 
         {
@@ -69,4 +69,5 @@ public class AccountService : IAccountService
             new Claim(ClaimTypes.Email, user.Email)
         };
     }
+
 }

@@ -1,4 +1,5 @@
 ﻿@using WEB.Interfaces;
+@using System.Security.Claims;
 @inject IGenericRepository<Category> categoryRepository
 <!DOCTYPE html>
 <html lang="en">
@@ -18,6 +19,8 @@
         <link rel="stylesheet" href="~/assets/css/style.css">
         <link rel="stylesheet" href="~/assets/css/skins/skin-demo-2.css">
         <link rel="stylesheet" href="~/assets/css/demos/demo-2.css">
+        <!-- Toastr -->
+        <link rel="stylesheet" href="~/Plugins/toastr/toastr.min.css">
     </head>
     <body>
         <div class="page-wrapper">
@@ -57,7 +60,16 @@
                                                 </div><!-- End .header-menu -->
                                             </div>
                                         </li>
-                                        <li><a href="#signin-modal" data-toggle="modal">Sign in / Sign up</a></li>
+                                        @if(User.Identity.IsAuthenticated)
+                                        {
+                                            <li><a>@User.Identity.Name</a></li>
+                                            <li><a asp-controller="Account" asp-action="SignOut">SignOut</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a asp-controller="Account" asp-action="SignUp">SignUp</a></li>
+                                            <li><a asp-controller="Account" asp-action="SignIn">SignIn</a></li>
+                                        }
                                     </ul>
                                 </li>
                             </ul><!-- End .top-menu -->
@@ -578,14 +590,7 @@
         <script src="~/assets/js/jquery.countdown.min.js"></script>
         <script src="~/assets/js/main.js"></script>
         <script src="~/assets/js/demos/demo-2.js"></script>
-        <script>
-            function changeQuantityInCache(int id)
-            {
-                var element = document.getElementById(id);
-                element.submit();
-            }
-        </script>
+        <script src="~/Plugins/toastr/toastr.min.js"></script>
         @await RenderSectionAsync("Scripts", required: false)
-    
     </body>
 </html>

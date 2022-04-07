@@ -1,11 +1,13 @@
 ﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WEB.Interfaces;
 using WEB.Models;
 
 namespace WEB.Controllers;
-
+[Authorize]
+[AllowAnonymous]
 public class HomeController : SiteBaseController
 {
     private readonly ILogger<HomeController> _logger;

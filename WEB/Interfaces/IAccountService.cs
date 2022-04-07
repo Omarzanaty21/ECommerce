@@ -4,8 +4,8 @@ using WEB.ViewModels;
 
 namespace WEB.Interfaces;
 
-public interface IAccountService
+public interface IAccountService<T> where T : UserBaseModel
 {
-    Task<AccountResultResponse> AdminPasswordSignInAsync(AdminViewModel model);
-    UserHashAndSalt HashPassword(UserViewModel model);
+    Task<AccountResultResponse> UserPasswordSignInAsync(UserBaseViewModel model, string authenticationType);
+    UserHashAndSalt HashPassword(string password);
 }
