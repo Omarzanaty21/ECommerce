@@ -39,7 +39,7 @@
 									<tbody>
                                         @foreach(var cartItem in Model.CartItems)
                                         {
-                                            <tr>
+                                            <tr class="foreachCartItem">
                                                 <td class="product-col">
                                                     <div class="product">
                                                         <figure class="product-media">
@@ -53,15 +53,15 @@
                                                         </h3><!-- End .product-title -->
                                                     </div><!-- End .product -->
                                                 </td>
-                                                <td class="price-col">@cartItem.Price</td>
+                                                <td class="price-col price">@cartItem.Price</td>
                                                 <td class="quantity-col">
                                                     <div class="cart-product-quantity">
 														
-														<input id="input-quantity-@cartItem.Id" oninput="changeQuantityInCache(@cartItem.Id, @cartItem.Price)" name="value" value="@cartItem.Quantity" type="number" class="form-control" min="1" max="10" step="1" data-decimals="0" required>
+														<input class="inputQuantity" id="q-@cartItem.Id" oninput="changeQuantityInCache(@cartItem.Id)" name="value" value="@cartItem.Quantity" type="number" class="form-control" min="1" max="10" step="1" data-decimals="0" required>
 														
                                                     </div><!-- End .cart-product-quantity -->
                                                 </td>
-                                                <td class="total-col" id="showprice-@cartItem.Id">@(cartItem.Quantity * cartItem.Price)</td>
+                                                <td class="total-col itemTotal" id="itemTotal-@cartItem.Id">@(cartItem.Quantity * cartItem.Price)</td>
                                                 <td class="remove-col">
 													<a asp-controller="Cart" asp-action="RemoveFromCart" asp-route-id="@cartItem.Id">
 														<button class="btn-remove">
@@ -121,7 +121,7 @@
 	                					<tbody>
 	                						<tr class="summary-subtotal">
 	                							<td>Subtotal:</td>
-	                							<td>$160.00</td>
+	                							<td></td>
 	                						</tr><!-- End .summary-subtotal -->
 	                						<tr class="summary-shipping">
 	                							<td>Shipping:</td>
@@ -165,7 +165,7 @@
 
 	                						<tr class="summary-total">
 	                							<td>Total:</td>
-	                							<td>$160.00</td>
+	                							<td class="showTotal"></td>
 	                						</tr><!-- End .summary-total -->
 	                					</tbody>
 	                				</table><!-- End .table table-summary -->
@@ -180,25 +180,58 @@
                 </div><!-- End .cart -->
     </div><!-- End .page-content -->
 	}
-	@section Scripts
+	 @section Scripts
 	{
 		<script>
-			 function changeQuantityInCache(cartItemId, price)
+			window.onload = calculateCartTotal();
+
+			function changeQuantityInCache(cartItemId)
 			{
-				var inputElement = document.getElementById(`input-quantity-${cartItemId}`);
-				var priceShowElement = document.getElementById(`showprice-${cartItemId}`)
+				let inputElement = document.getElementById(`q-${cartItemId}`);
+
 				fetch("@Url.Action("UpdateCartItem", "Cart")",{
 				method : "post",
 				headers : {'Content-Type' : 'application/json'},
-				body : JSON.stringify({CartItemId : cartItemId, Value: inputElement.value})
+				body : JSON.stringify({CartItemId : cartItemId, Value: inputElement.value, })
 				})
-				.then(response => response.json())
-				//.then(inputValue => inputElement.innerText = inputValue)
-				.then(totalPrice => priceShowElement.innerText = totalPrice)
 				.catch(error => {
 					console.log(error);
 				});
+
+				changeItemTotal(cartItemId);
+				calculateCartTotal();
 			}
+
+			function changeItemTotal(id)
+			{	
+				let inputElement = document.getElementById(`q-${id}`);
+				let closestParentToInputElement = inputElement.closest('tr');
+				let totalElement = closestParentToInputElement.querySelector('.itemTotal');
+
+				let price = Number.parseFloat(closestParentToInputElement.querySelector('.price').innerText);
+				let quantity = inputElement.value;
+
+				totalElement.innerText = price * quantity;
+				
+			}
+
+			function calculateCartTotal()
+			{
+				let cartItemselementsArray = document.querySelectorAll('.foreachCartItem');
+
+				let total = 0.0;
+				let itemTotal = 0.0;
+
+				cartItemselementsArray.forEach(function(current){
+					itemTotal = Number.parseFloat(current.querySelector('.itemTotal').innerText);
+					total += itemTotal;
+				});
+
+				let showItemElement = document.querySelector('td.showTotal');
+
+				showItemElement.innerText = total;
+			}
+
 			
 		</script>
 	}

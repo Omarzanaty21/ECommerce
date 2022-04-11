@@ -97,24 +97,19 @@ namespace WEB.Controllers
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public decimal UpdateCartItem([FromBody]CartItemUpdate cartItemUpdate)
+        public void UpdateCartItem([FromBody]CartItemUpdate cartItemUpdate)
         {
             var cart = SessionService.GetCartFromJson<CartItem>(HttpContext.Session, "cart");
-            
-            decimal totalPriceForCartItem = 0.0M;
 
             foreach(var cartItem in cart.ToList<CartItem>())
             {
                 if(cartItem.Id == cartItemUpdate.CartItemId)
                 {
                     cartItem.Quantity = cartItemUpdate.Value;
-                    totalPriceForCartItem = cartItem.Price * cartItem.Quantity;
                 }
             }
 
             SessionService.SetCartAsJson<CartItem>(HttpContext.Session, "cart", cart);
-            return totalPriceForCartItem;
-            // return cartItemUpdate.Value;
         }
     }
 }
